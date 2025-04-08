@@ -73,44 +73,24 @@
       font-size: 0.85em;
       color: #444;
     }
-        /* Navigation Styles */
-    nav {
-      background-color: #e0f0ff;
-      border: 2px solid #005f8d;
-      padding: 1em;
-      margin: 1em auto;
-      width: 60%;
+    #entry-form {
+      margin-top: 1em;
       text-align: center;
-      border-radius: 8px;
-      box-shadow: 0 0 5px rgba(0, 95, 141, 0.3);
-      font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
     }
-
-    nav a {
-      margin: 0 1.5em;
-      font-weight: bold;
-      color: #003049;
-      font-size: 1.1em;
+    #entry-form input, #entry-form textarea {
+      width: 80%;
+      padding: 0.5em;
+      margin: 0.5em 0;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-family: 'Courier New', monospace;
     }
-
-    nav a:hover {
-      color: #005f8d;
-    }
-
-    nav a span.icon {
-      margin-right: 0.4em;
+    #entry-form textarea {
+      resize: vertical;
     }
   </style>
 </head>
 <body>
-<!-- Nautically Themed Navigation Menu -->
-  <nav>
-    <a href="index.html"><span class="icon">🏠︎</span>HOME</a>
-    <a href="shorter-text.html"><span class="icon">📖</span>Shorter Text</a>
-    <a href="moby-images.html"><span class="icon">🖼️</span>Images</a>
-    <a href="semantic-tags.html"><span class="icon">⚓</span>Various Semantic Tags</a>
-  </nav>
-  <br>
   <section id="sailor-log">
     <h2>Captain’s Logbook</h2>
     <div id="logbook-container">
@@ -118,6 +98,13 @@
       <div style="text-align: center; margin-top: 1em;">
         <button onclick="nextEntry()">Next Log Entry</button>
       </div>
+      <form id="entry-form" onsubmit="addCustomEntry(event)">
+        <input type="date" id="log-date" required />
+        <br />
+        <textarea id="log-text" rows="4" placeholder="Write your log entry here..." required></textarea>
+        <br />
+        <button type="submit">Add Entry</button>
+      </form>
     </div>
   </section>
 
@@ -154,6 +141,18 @@
       }
     }
 
+    function addCustomEntry(event) {
+      event.preventDefault();
+      const date = document.getElementById("log-date").value;
+      const text = document.getElementById("log-text").value;
+      if (date && text) {
+        logEntries.push({ date, text });
+        document.getElementById("log-date").value = "";
+        document.getElementById("log-text").value = "";
+        alert("Log entry added! Click 'Next Log Entry' to view it.");
+      }
+    }
+
     const symbols = [
       { name: "Captain Ahab", icon: "🧔‍♂️", description: "The monomaniacal captain obsessed with revenge on Moby Dick." },
       { name: "Ishmael", icon: "📖", description: "The narrator and wandering sailor, a lens for the story." },
@@ -180,4 +179,3 @@
   </script>
 </body>
 </html>
- 
