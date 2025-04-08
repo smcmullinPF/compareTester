@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sailor's Log Simulation</title>
+  <style>
+    body {
+      background: #f4f1ed;
+      font-family: 'Courier New', monospace;
+      color: #2e2e2e;
+      margin: 0;
+      padding: 0;
+    }
+    h2 {
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 2em;
+    }
+    #logbook-container {
+      background: #fffef9;
+      border: 4px double #555;
+      max-width: 700px;
+      margin: 2rem auto;
+      padding: 1.5em;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    }
+    #log-entries div {
+      animation: fadeIn 1s ease-in-out;
+    }
+    button {
+      background: #3e4e50;
+      color: #fff;
+      border: none;
+      padding: 0.75em 1.5em;
+      font-size: 1em;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    button:hover {
+      background: #5e7b7d;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    #symbol-map {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2em;
+      margin: 3rem 10%;
+    }
+    .symbol-card {
+      width: 140px;
+      background: #fff;
+      border: 2px solid #aaa;
+      border-radius: 10px;
+      text-align: center;
+      padding: 1em;
+      box-shadow: 2px 4px 10px rgba(0,0,0,0.1);
+      transition: transform 0.2s ease;
+    }
+    .symbol-card:hover {
+      transform: scale(1.05);
+    }
+    .symbol-card div {
+      font-size: 2.5em;
+    }
+    .symbol-card p {
+      font-size: 0.85em;
+      color: #444;
+    }
+  </style>
+</head>
+<body>
+<!-- Nautically Themed Navigation Menu -->
+  <nav>
+    <a href="shorter-text.html"><span class="icon">📖</span>Shorter Text</a>
+    <a href="moby-images.html"><span class="icon">🖼️</span>Images</a>
+    <a href="semantic-tags.html"><span class="icon">⚓</span>Various Semantic Tags</a>
+  </nav>
+  <br>
+  <section id="sailor-log">
+    <h2>Captain’s Logbook</h2>
+    <div id="logbook-container">
+      <div id="log-entries"></div>
+      <div style="text-align: center; margin-top: 1em;">
+        <button onclick="nextEntry()">Next Log Entry</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="map-section">
+    <h2>Thematic Map of Characters & Symbols</h2>
+    <div id="symbol-map"></div>
+  </section>
+
+  <script>
+    const logEntries = [
+      { date: "June 12, 1841", text: "Departed from Nantucket. Spirits are high. Queequeg smokes peacefully on deck." },
+      { date: "June 18, 1841", text: "Ahab still below decks. Starbuck uneasy. Wind is strong; sea foam like ghost breath." },
+      { date: "July 2, 1841", text: "Strange shapes on the horizon. Talk of omens. Fedallah spotted praying alone at dawn." },
+      { date: "July 15, 1841", text: "First whale sighted. Not white. Crew disappointed. Ahab emerged briefly with the doubloon." },
+      { date: "August 3, 1841", text: "Storm last night. Pequod held. Ahab nailed the doubloon to the mast—madness or destiny?" }
+    ];
+
+    let currentEntry = 0;
+
+    function nextEntry() {
+      const entryDiv = document.getElementById("log-entries");
+      if (currentEntry < logEntries.length) {
+        const entry = logEntries[currentEntry];
+        const logHTML = `
+          <div>
+            <strong>${entry.date}</strong><br>
+            <p>${entry.text}</p>
+          </div>
+        `;
+        entryDiv.innerHTML += logHTML;
+        currentEntry++;
+      } else {
+        alert("All log entries have been viewed.");
+      }
+    }
+
+    const symbols = [
+      { name: "Captain Ahab", icon: "🧔‍♂️", description: "The monomaniacal captain obsessed with revenge on Moby Dick." },
+      { name: "Ishmael", icon: "📖", description: "The narrator and wandering sailor, a lens for the story." },
+      { name: "Queequeg", icon: "⚓", description: "Harpooner from the South Seas. Calm, tattooed, deeply spiritual." },
+      { name: "Moby Dick", icon: "🐋", description: "The legendary white whale—symbol of nature’s power and mystery." },
+      { name: "The Pequod", icon: "⛵", description: "The whaling ship captained by Ahab. A microcosm of humanity." },
+      { name: "Doubloon", icon: "🪙", description: "A golden coin nailed to the mast by Ahab—symbol of fate and prophecy." },
+      { name: "The Sea", icon: "🌊", description: "Vast and indifferent; the ultimate setting and symbol in Melville’s narrative." }
+    ];
+
+    window.onload = function() {
+      const mapContainer = document.getElementById("symbol-map");
+      symbols.forEach(symbol => {
+        const div = document.createElement("div");
+        div.className = "symbol-card";
+        div.innerHTML = `
+          <div>${symbol.icon}</div>
+          <strong>${symbol.name}</strong>
+          <p>${symbol.description}</p>
+        `;
+        mapContainer.appendChild(div);
+      });
+    };
+  </script>
+</body>
+</html>
+ 
